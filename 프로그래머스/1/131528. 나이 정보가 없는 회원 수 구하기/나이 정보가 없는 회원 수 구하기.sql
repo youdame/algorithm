@@ -1,2 +1,2 @@
 -- 코드를 입력하세요
-SELECT count(USER_ID) as users from USER_INFO where AGE is null
+SELECT count(JOINED) as users from USER_INFO where AGE is null
