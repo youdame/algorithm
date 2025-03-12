@@ -1,4 +1,2 @@
-SELECT COUNT(user_id)
-FROM USER_INFO
-WHERE age BETWEEN 20 AND 29
-AND TO_CHAR(JOINED, 'YYYY') = '2021';
+-- 코드를 입력하세요
+SELECT count(user_id)  from USER_INFO where age between 20 and 29 and joined like '2021%'
