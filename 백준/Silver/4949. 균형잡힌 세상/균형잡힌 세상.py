@@ -10,20 +10,12 @@ while True:
   for i in inputStr:  
     if i == "(" or i =="[":
       stack.append(i)
-    elif i ==")":
-      if len(stack) == 0:
-        answer = "no"
-        break
-      팝 = stack.pop()
-      if 팝 != "(":
+    elif i ==")" :
+      if len(stack) == 0 or stack.pop() !="(": 
         answer = "no"
         break
     elif i =="]":
-      if len(stack) == 0:
-        answer = "no"
-        break
-      팝 = stack.pop()
-      if 팝 != "[" :
+      if len(stack) == 0 or stack.pop() !="[":
         answer = "no"
         break
   if len(stack) != 0:
@@ -31,4 +23,3 @@ while True:
 
   print(answer)  
      
-
