@@ -1,12 +1,11 @@
+import sys
+
 n = int(input())
-members = []
+이름리스트 = []
+for element in sys.stdin:
+  나이, 이름 = element.strip().split(" ")
+  이름리스트.append((이름, int(나이)))
+튜플 = sorted(이름리스트, key = lambda x: x[1])
+for 이름, 나이 in 튜플:
+  print(나이, 이름)
 
-for _ in range(n):
-    age, name = input().split()
-    members.append((int(age), name))  # 순서대로 저장
-
-# 나이 기준으로 정렬 (파이썬 sort는 안정 정렬 = 순서 보존)
-members.sort(key=lambda x: x[0])
-
-for age, name in members:
-    print(age, name)
