@@ -1,16 +1,18 @@
+import sys
+input = sys.stdin.readline
 
-from itertools import combinations 
 
-숫자개수, 만들어야하는수 = list(map(int, input().split()))
-가진수 = list(map(int, input().split()))
+n , m = list(map(int, input().split(" ")))
 
-# print(숫자개수, 만들어야하는수)
-# print(가진수)
+nums = list(map(int, input().split(" ")))
 
-dictionary = {}
-차이 = max(가진수)
-for elements in combinations(가진수, 3):
-  if(만들어야하는수 - sum(elements) >= 0 ) :
-    dictionary[만들어야하는수 - sum(elements)] = sum(elements)
-
-print(dictionary[min(dictionary)])
+#print(nums)
+answer = 0
+for i in range(n):
+  for j in range(i + 1 , n):
+    for k in range(j + 1 ,n):
+      세개합 = nums[i] + nums[j] + nums[k]
+      if 세개합 <= m:
+        answer = max(answer, 세개합)
+print(answer)
+        
