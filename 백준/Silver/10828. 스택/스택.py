@@ -1,23 +1,24 @@
 import sys
 
-n = int(sys.stdin.readline())
-stack = []
 
-for _ in range(n):
-    배열 = sys.stdin.readline().split()
+input = sys.stdin.readline
+
+count = int(input())
+
+스택= []
+for i in range(count):
+
+  명령어 = (input().strip().split(" "))
+  if len(명령어) == 2:
+    스택.append(명령어[1])
+  else:
+    if 명령어[0] == "top":
+      print(스택[-1] if 스택 else -1)
+    elif 명령어[0] == "size":
+      print(len(스택))
+    elif 명령어[0] == "empty":
+      print(0 if len(스택) > 0  else 1)
+    elif 명령어[0] == "pop":
+      print(스택.pop() if len(스택)  else -1)
+
     
-    if len(배열) == 2:
-        _, b = 배열
-        stack.append(int(b))
-        continue
-
-    명령 = 배열[0]
-
-    if 명령 == "top":
-        print(stack[-1] if stack else -1)
-    elif 명령 == "pop":
-        print(stack.pop() if stack else -1)
-    elif 명령 == "size":
-        print(len(stack))
-    elif 명령 == "empty":
-        print(0 if stack else 1)
