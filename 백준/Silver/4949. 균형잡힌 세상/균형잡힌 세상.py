@@ -1,25 +1,29 @@
+import sys
+
+input = sys.stdin.readline
 
 while True:
-  inputStr = input()
+    인풋 = input().rstrip()  # rstrip() 사용
 
-  if inputStr == ".":
-    break
-  
-  answer = "yes"
-  stack = []
-  for i in inputStr:  
-    if i == "(" or i =="[":
-      stack.append(i)
-    elif i ==")" :
-      if len(stack) == 0 or stack.pop() !="(": 
-        answer = "no"
+    if 인풋 == ".":  # 이제 제대로 비교됨
         break
-    elif i =="]":
-      if len(stack) == 0 or stack.pop() !="[":
-        answer = "no"
-        break
-  if len(stack) != 0:
-    answer = "no"
 
-  print(answer)  
-     
+    arr = []
+    flag = True
+    for element in 인풋:
+        if element == "(" or element == "[":
+            arr.append(element)
+        elif element == ")":
+            if len(arr) > 0 and "(" == arr[-1]:
+                arr.pop()
+            else:
+                flag = False
+                break
+        elif element == "]":
+            if len(arr) > 0 and "[" == arr[-1]:
+                arr.pop()
+            else:
+                flag = False
+                break
+
+    print("yes" if flag and len(arr) == 0 else "no")
