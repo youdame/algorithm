@@ -1,8 +1,7 @@
 import sys
-from io import StringIO
 
 input = sys.stdin.readline
-a = set()
+arr = [0] * 42
 for i in list(map(int, [input() for _ in range(10)])):
-    a.add(i % 42)
-print(len(a))
+    arr[i % 42] = 1
+print(sum(arr))
