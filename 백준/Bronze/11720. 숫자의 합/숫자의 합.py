@@ -1,6 +1,8 @@
-n = input()
-str = input()
-sum = 0
-for i in str:
-  sum += int(i)
-print(sum)
+import sys
+
+input = sys.stdin.readline
+
+count = int(input())
+str = input().strip()
+
+print(sum([int(i) for i in str]))
