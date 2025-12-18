@@ -1,13 +1,12 @@
 import sys
 
-
 input = sys.stdin.readline
 
-
-알파벳위치 = [-1] * 26
+arr = [-1] * 26
 인풋 = input().strip()
+for index in range(len(인풋)):
+    if arr[(ord(인풋[index]) - ord("a"))] != -1:
+        continue
+    arr[(ord(인풋[index]) - ord("a"))] = index
 
-for i in range(len(인풋)):
-    if 알파벳위치[ord(인풋[i]) - ord("a")] == -1:
-        알파벳위치[ord(인풋[i]) - ord("a")] = i
-print(" ".join(map(str, 알파벳위치)))
+print(" ".join(map(str, arr)))
