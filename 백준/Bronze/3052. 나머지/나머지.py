@@ -1,10 +1,8 @@
 import sys
-
+from io import StringIO
 
 input = sys.stdin.readline
-
-배열 = []
-for i in range(10):
-  배열.append(int(input()) % 42)
-
-print(len(set(배열)))
+a = set()
+for i in list(map(int, [input() for _ in range(10)])):
+    a.add(i % 42)
+print(len(a))
