@@ -3,6 +3,7 @@ from io import StringIO
 
 
 
+
 input = sys.stdin.readline
 
 N, M = list(map(int, input().strip().split(" ")))
@@ -13,7 +14,7 @@ right = 0
 count = 0
 합 = 0
 i = 0
-while right < N + 1:
+while True:
     if 합 == M:
         count += 1
         합 -= arr[left]
