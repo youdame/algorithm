@@ -5,21 +5,19 @@ input = sys.stdin.readline
 
 N = int(input())
 
-오원개수 = N // 5
-N = N - 오원개수 * 5
-이원개수 = N // 2 if N % 2 == 0 else 0
-N = N - 이원개수 * 2
-
-while N != 0:
-    if 오원개수 == 0 and N % 2 != 0:
-        print(-1)
-        sys.exit()
-    오원개수 -= 1
-
-    N += 5
-    이원개수 = N // 2 if N % 2 == 0 else 0
-
-    N = N - 이원개수 * 2
-
-
-print(오원개수 + 이원개수)
+if N % 5 == 0:
+    print(N // 5)
+    sys.exit()
+else:
+    # 5로만 불가능한 경우 , 2를 몇 개 쓰면 될까요?
+    이원개수 = 0
+    while N != 0:
+        if N < 0:
+            print(-1)
+            sys.exit()
+        이원개수 += 1
+        N = N - 2
+        if N % 5 == 0:
+            오원개수 = N // 5
+            break
+print(이원개수 + 오원개수)
