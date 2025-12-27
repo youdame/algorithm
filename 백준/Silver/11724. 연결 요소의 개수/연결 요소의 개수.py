@@ -1,6 +1,6 @@
 import sys
 from io import StringIO
-
+from collections import deque
 
 input = sys.stdin.readline
 
@@ -14,19 +14,19 @@ visited = [False] * (N + 1)
 
 
 answer = 0
-
+queue = deque()
 for index in range(1, len(visited)):
     if visited[index]:
         continue
 
     answer += 1
-    stack = [index]
+    queue.append(index)
     visited[index] = True
-    while stack:
-        node = stack.pop()
+    while queue:
+        node = queue.popleft()
         for new_node in adj[node]:
             if not visited[new_node]:
                 visited[new_node] = True
-                stack.append(new_node)
+                queue.append(new_node)
 
 print(answer)
