@@ -1,7 +1,6 @@
 import sys
 from io import StringIO
 
-sys.setrecursionlimit(10**7)
 
 input = sys.stdin.readline
 
@@ -14,21 +13,20 @@ for i in range(M):
 visited = [False] * (N + 1)
 
 
-def bfs(node):
-    visited[node] = True
-    for new_node in adj[node]:
-        if not visited[new_node]:
-            visited[new_node] = True
-            bfs(new_node)
-
-
 answer = 0
 
 for index in range(1, len(visited)):
     if visited[index]:
         continue
-    else:
-        answer += 1
-        bfs(index)
+
+    answer += 1
+    stack = [index]
+    visited[index] = True
+    while stack:
+        node = stack.pop()
+        for new_node in adj[node]:
+            if not visited[new_node]:
+                visited[new_node] = True
+                stack.append(new_node)
 
 print(answer)
