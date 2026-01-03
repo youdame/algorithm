@@ -3,7 +3,6 @@ from io import StringIO
 from collections import deque
 
 
-
 input = sys.stdin.readline
 
 
@@ -20,34 +19,29 @@ for i in range(N):
                 adj[j + 1].append(i + 1)
 route = list(map(int, input().strip().split()))
 
-# print(adj)
+
 
 visited = [False] * (N + 1)
 
+시작 = route[0]
 
-def bfs(node):
-    queue = deque([])
-    queue.append(node)
-    visited[node] = True
-    node_route = [node]
+queue = deque([])
+queue.append(시작)
+visited[시작] = True
 
-    while queue:
-        pop_node = queue.popleft()
-        for new_node in adj[pop_node]:
-            # print(new_node)
-            if not visited[new_node]:
-                visited[new_node] = True
-                queue.append(new_node)
-                node_route.append(new_node)
-    return node_route
+while queue:
+    pop_node = queue.popleft()
+    for new_node in adj[pop_node]:
+        # print(new_node)
+        if not visited[new_node]:
+            visited[new_node] = True
+            queue.append(new_node)
 
 
 flag = True
 
-
-시작 = bfs(route[0])
 for node in route:
-    if node not in 시작:
+    if not visited[node]:
         flag = False
         break
 
