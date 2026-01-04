@@ -1,21 +1,15 @@
 import sys
 from io import StringIO
 
-
 input = sys.stdin.readline
 
 N = int(input())
-record = {}
+record = set()
 for i in range(N):
     name, status = input().split()
     if status == "enter":
-        record[name] = 1
+        record.add(name)
     else:
-        record[name] = 0
-
-answer = []
-for name, count in record.items():
-    if count == 1:
-        answer.append(name)
-for name in sorted(answer, reverse=True):
-    print(name)
+        record.remove(name)
+for element in sorted(list(record))[::-1]:
+    print(element)
