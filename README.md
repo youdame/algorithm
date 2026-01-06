@@ -1,7 +1,7 @@
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=gmlwjd2400)](https://solved.ac/gmlwjd2400/)
 
 ## 📜 Updates
-> 👑 **25-01-06**
+> 👑 **26-01-06**
 >- Tier : Gold III 1100
 >- 262문제 해결
 
