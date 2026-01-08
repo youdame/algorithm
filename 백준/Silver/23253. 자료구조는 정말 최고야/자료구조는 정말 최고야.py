@@ -18,10 +18,9 @@ for i in range(더미수):
 책번호 = 1
 
 found = True
-while True:
-    if 책번호 == N + 1:
-        break
-    if 책번호 in book_to_stack and stacks[book_to_stack[책번호]][-1] == 책번호:
+while 책번호 <= N:
+
+    if stacks[book_to_stack[책번호]][-1] == 책번호:
         stacks[book_to_stack[책번호]].pop()
         책번호 += 1
     else:
