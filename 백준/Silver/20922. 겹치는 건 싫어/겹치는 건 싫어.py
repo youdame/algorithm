@@ -13,12 +13,12 @@ answer = 0
 for index in range(N):
     if arr[index] not in record:
         record[arr[index]] = 1
-        answer_arr.append(arr[index])
     else:
-        record[arr[index]] += 1
-        answer_arr.append(arr[index])
-        while record[arr[index]] > K:
+        while record[arr[index]] >= K:
             record[answer_arr.pop(0)] -= 1
+        record[arr[index]] += 1
+
+    answer_arr.append(arr[index])
 
     answer = max(answer, len(answer_arr))
 print(answer)
