@@ -1,7 +1,14 @@
 import sys
-A, B, C = map(int, sys.stdin.readline().split())
+from io import StringIO
 
-if C <= B:
+
+
+input = sys.stdin.readline
+
+A, B, C = map(int, input().split())
+
+
+if B >= C : 
     print(-1)
-else:
-    print(A // (C - B) + 1)
+else: 
+    print(A // (C -B) + 1)
