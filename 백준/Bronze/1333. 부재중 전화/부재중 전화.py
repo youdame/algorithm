@@ -1,21 +1,21 @@
 import sys
+from io import StringIO
+
+
+
 input = sys.stdin.readline
+
 
 N, L, D = map(int, input().split())
 
-block = L + 5
-end_time = N * block - 5
+time = 0
+album_end = N * L + (N-1) * 5
 
-k = 0
-while True:
-    t = k * D
-
-    if t >= end_time:
-        print(t)
+while True:    
+    if time >= album_end:
         break
-
-    if t % block >= L:
-        print(t)
+    if time % (L + 5) >= L:
         break
-
-    k += 1
+    time += D
+    
+print(time)
