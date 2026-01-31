@@ -11,21 +11,16 @@ A, B = map(int, input().split())
 
 count = 1
 
-possible =True
-while A != B:
-    if str(B)[-1] == "1":
-        B = int(str(B)[:len(str(B))-1]) 
-
+while B > A:
+    if B % 10 == 1:
+        B //= 10
     elif B % 2 == 0: 
         B = B // 2
     else: 
-        possible = False
+        print(-1)
         break
-    if B < A:
-        possible = False
-        break
-
     count += 1
 
-    
-print(count if possible else -1)
+else:   
+    # break 없이 while이 끝났을 때만 실행
+    print(count if A == B else -1)
