@@ -1,30 +1,24 @@
 import sys
+from io import StringIO
+from itertools import combinations_with_replacement
+
+
 input = sys.stdin.readline
+# 3개로 표현된다는 것의 의미가 무엇일까? K는 1000보다 작다
 
 T = int(input())
 
-tri = []
-n = 1
-while True:
-    t = n * (n + 1) // 2
-    if t > 1000:
-        break
-    tri.append(t)
-    n += 1
+arr = []
+for i in range(1, 45):
+    arr.append(i * (i+1) // 2)
 
 for _ in range(T):
     K = int(input())
-    found = 0
-
-    for a in tri:
-        for b in tri:
-            for c in tri:
-                if a + b + c == K:
-                    found = 1
-                    break
-            if found:
-                break
-        if found:
+    for comb in combinations_with_replacement(arr, 3):
+        if sum(comb) == K:
+            print(1)
             break
+    else: 
+        print(0)
 
-    print(found)
+    
