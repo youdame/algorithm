@@ -1,0 +1,11 @@
+import sys
+from io import StringIO
+from itertools import product
+
+
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+
+for comb in product(list(range(1,N+1)), repeat=M):
+    print(" ".join(map(str, comb)))
