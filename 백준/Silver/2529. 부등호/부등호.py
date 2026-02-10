@@ -1,6 +1,5 @@
 import sys 
 from io import StringIO
-from itertools import permutations
 
 input = sys.stdin.readline
 
@@ -11,21 +10,33 @@ arr = list(input().strip().replace(" ", ""))
 
 answer = []
 
-for permutation in permutations(list(range(0, 10)), k+1):  
-    possible = True
-    for index in range(len(arr)):
-        if arr[index] == "<":
-            if permutation[index] > permutation[index+1]:
-                possible = False
-                break
-        else:
-            if permutation[index] < permutation[index+1]:
-                possible = False
-                break
-    if not possible:
-        continue
-    if possible:
-        answer.append(permutation)
-print("".join(map(str, answer[-1])), "".join(map(str, answer[0])))
-        
+min_value = None
+max_value = None
 
+def dfs(depth):
+    global min_value, max_value
+
+    if depth == k + 1:
+        value = "".join(map(str, answer))
+        if min_value is None:
+            min_value = value
+        max_value = value
+        return
+
+    for digit in range(10):
+        if digit in answer:
+            continue
+
+        if depth > 0:
+            if arr[depth - 1] == "<" and answer[-1] > digit:
+                continue
+            if arr[depth - 1] == ">" and answer[-1] < digit:
+                continue
+
+        answer.append(digit)
+        dfs(depth + 1)
+        answer.pop()
+dfs(0)
+
+print(max_value)
+print(min_value)
