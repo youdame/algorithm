@@ -16,12 +16,9 @@ i = 0
 answer = []
 while arr:
     i += (K - 1)
-    index = (i + len(arr)) % len(arr)
+    index = i % len(arr)
     answer.append(arr[index])
     arr.pop(index)
-    
-    if len(arr) == 0:
-        break
     i = index
     
 print(f"<{", ".join(map(str, answer))}>")
