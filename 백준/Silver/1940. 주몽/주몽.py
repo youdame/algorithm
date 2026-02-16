@@ -1,6 +1,5 @@
 import sys 
 from io import StringIO
-
 input = sys.stdin.readline
 
 N = int(input())
@@ -11,7 +10,7 @@ left = 0
 right = N - 1
 
 answer = 0
-while left < right and right < N:
+while left < right:
     if arr[left] + arr[right] < M:
         left += 1
     elif arr[left] + arr[right] > M:
@@ -19,6 +18,7 @@ while left < right and right < N:
     else:
         answer += 1
         left += 1
+        right -= 1
 
 print(answer)
         
