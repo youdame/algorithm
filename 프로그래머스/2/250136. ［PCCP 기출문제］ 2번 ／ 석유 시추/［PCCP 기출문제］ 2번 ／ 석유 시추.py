@@ -3,7 +3,6 @@ from collections import deque, defaultdict
 def solution(land):
     n = len(land)
     m = len(land[0])
-    queue = deque([])
     
     directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
     visited = [[False] * m for _ in range(n)]
@@ -15,6 +14,7 @@ def solution(land):
     for i in range(n):
         for j in range(m):
             if land[i][j] == 1 and not visited[i][j]:
+                queue = deque([])
                 queue.append((i, j))
                 visited[i][j] = True
                 
@@ -25,8 +25,7 @@ def solution(land):
                 while queue:
                     y, x = queue.popleft()
                     
-                    for direction in directions:
-                        dy, dx = direction
+                    for dy, dx in directions:
                         ny = dy + y
                         nx = dx + x
                         if 0 <= ny < n and 0 <= nx < m:
@@ -41,13 +40,11 @@ def solution(land):
 
     answer = []
     for i in range(m):
-        arr = []
+        cols = set()
         for j in range(n):
             if record[j][i] != -1:
-                arr.append(record[j][i])
-        total_석유 = 0
-        for element in list(set(arr)):
-            total_석유 += size[element]
+                cols.add(record[j][i])
+        total_석유 = sum(size[element] for element in cols)
         answer.append(total_석유) 
     return max(answer)
     
