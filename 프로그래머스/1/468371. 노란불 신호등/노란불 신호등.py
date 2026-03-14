@@ -5,7 +5,7 @@ def get_lcm(a, b):
 def get_color(second, signal):
     g, y, r = signal
 
-    color = (second % sum(signal) )
+    color = second % sum(signal) 
 
     if color <= g:
         return 0
@@ -19,7 +19,7 @@ def solution(signals):
     for signal in signals:
         period = get_lcm(sum(signal), period)
     
-    for second in range(1, period):
+    for second in range(1, period+1):
         possible = True
         for signal in signals:
             if get_color(second, signal) != 1:
