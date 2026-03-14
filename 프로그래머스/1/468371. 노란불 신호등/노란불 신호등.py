@@ -1,3 +1,7 @@
+import math
+
+def get_lcm(a, b):
+    return a * b // math.gcd(a,b)
 def get_color(second, signal):
     g, y, r = signal
 
@@ -11,19 +15,18 @@ def get_color(second, signal):
         return 2
     
 def solution(signals):
-    second = 1
-
-    total = (sum(sum(signal) for signal in signals))
-    while True:
-        if second > total * 50000:
-            return -1
+    period = 1
+    for signal in signals:
+        period = get_lcm(sum(signal), period)
+    
+    for second in range(1, period):
         possible = True
         for signal in signals:
             if get_color(second, signal) != 1:
                 possible = False
         if possible:
             return second
-        second += 1
+    return -1
 
     
     
