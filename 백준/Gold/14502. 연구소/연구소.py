@@ -3,7 +3,6 @@ from io import StringIO
 from itertools import combinations
 from collections import deque
 
-
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
@@ -28,11 +27,11 @@ for i in range(N):
         if arr[i][j] == 0:
             empty_locations.append((i, j))
 
-visited = [[False] * M for _ in range(M)]
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
 
 def bfs(temp):
+    # 한 번에 다 넣기 때문에 visited처리가 필요 없음 
     while queue:
         y, x = queue.popleft() 
         # 감염 처리 
@@ -54,6 +53,7 @@ for comb in combinations(empty_locations, 3):
     queue = deque([])
     
     # 원본 배열을 보존하기 위해 copy
+    # copy 문법 익히기 
     temp = [row[:] for row in arr]
     
     # 벽 세우기 
@@ -77,12 +77,6 @@ for comb in combinations(empty_locations, 3):
                 safe_area += 1
     
     answer = max(safe_area, answer)
-
-
-    for ey, ex in comb:
-        # 벽 되돌리기 
-        temp[ey][ex] = 0
-
     
 print(answer)
     
