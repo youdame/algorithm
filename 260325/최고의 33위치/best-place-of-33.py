@@ -18,12 +18,7 @@ for y in range(n):
                 ny = y + dy
                 nx = x + dx
                 sum += grid[ny][nx]
-       
-        else:
-            possible = False
-            break
+
         answer = max(sum , answer)
-    if not possible:
-        break
-        
+
 print(answer)
