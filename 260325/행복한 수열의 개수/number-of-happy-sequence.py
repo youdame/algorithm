@@ -6,40 +6,25 @@ grid = [list(map(int, input().split())) for _ in range(N)]
 
 
 """
-answer = 0
-for row in grid:
+
+def is_happy(seq):
     count = 1
     max_count = 1
     for i in range(1, N):
-        if row[i] == row[i-1]:
+        if seq[i] == seq[i-1]:
             count += 1
         else:
             count = 1
         max_count = max(count, max_count)
-    if max_count >= M:
-        answer += 1 
+    return max_count >= M
 
-    # print(row, count)
-"""
-(0, 0)   (0, 1)
-(n-1, 0) (n-1, 1)
-"""
+answer = 0
+
+for row in grid:
+    answer += is_happy(row)
 
 for i in range(N):
-    col = []
-    for j in range(N):
-        col.append(grid[j][i])
+    col = [row[i] for row in grid]
+    answer += is_happy(col)
 
-    count = 1
-    max_count = 1
-    for k in range(1, N):
-        if col[k] == col[k-1]:
-            count += 1
-        else:
-            count = 1
-        max_count = max(count, max_count)
-    if max_count >= M:
-        answer += 1 
-
-    # print(col, count)
 print(answer)
