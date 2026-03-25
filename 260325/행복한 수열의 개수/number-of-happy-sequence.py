@@ -14,9 +14,9 @@ for row in grid:
             count += 1
         else:
             count = 1
-        if count == M :
-            answer += 1 
-            break
+    if count >= M :
+        answer += 1 
+
 """
 (0, 0)   (0, 1)
 (n-1, 0) (n-1, 1)
@@ -26,7 +26,6 @@ for i in range(N):
     col = []
     for j in range(N):
         col.append(grid[j][i])
-    # print(col)
     count = 1
     for k in range(N-1):
         if col[k] == col[k+1]:
@@ -34,7 +33,7 @@ for i in range(N):
 
         else:
             count = 1
-        if count == M :
-            answer += 1 
-            break
+    if count >= M :
+        answer += 1 
+
 print(answer)
