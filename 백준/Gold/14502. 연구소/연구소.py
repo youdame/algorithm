@@ -2,7 +2,7 @@ import sys
 from io import StringIO
 from itertools import combinations
 from collections import deque
-
+import copy 
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
@@ -54,7 +54,7 @@ for comb in combinations(empty_locations, 3):
     
     # 원본 배열을 보존하기 위해 copy
     # copy 문법 익히기 
-    temp = [row[:] for row in arr]
+    temp = copy.deepcopy(arr) 
     
     # 벽 세우기 
     for ey, ex in comb:
