@@ -17,7 +17,8 @@ dp[4] = dp[2] + dp[2]
 dp[5] = dp[2] + dp[3] // dp[3] + dp[2]
 dp[]
 
-7 = 2 칸 + dp[5]
+7 = 2 칸 + dp[7-2] or 3칸 + dp[7-3]
+
 
 아예 올라갈 수 없는 경우도 존재하지 않나?
 
@@ -25,21 +26,15 @@ dp[]
 
 """
 
-dp = [-1 for _ in range(n + 1)]
+dp = [0 for _ in range(max(3,n) + 1)]
 
 dp[1] = 0
 dp[2] = 1
+dp[3] = 1
 
-for i in range(3, n+1):
-    if i == 3:
-        dp[3] = 1   
-        continue 
-
-    count = 0
-    # print(i)
-    for j in range(1, i):
-        if dp[j] != 0 and dp[i-j] != 0:
-            count += 1
-    dp[i] = count
+for i in range(4, n+1):
+    dp[i] += dp[i-2]  
+    dp[i] += dp[i-3] 
 
 print(dp[n])
+
