@@ -25,24 +25,24 @@ for i, j, d in edges:
 school = n
 
 answer = 0
-for start in range(1, n):
-    distances = [1e9] * (n + 1) 
-    distances[start] = 0
+start = n
+distances = [1e9] * (n + 1) 
+distances[start] = 0
 
-    heap = []
-    heapq.heappush(heap, (0, start))
-    
-    while heap:
-        dist, node = heapq.heappop(heap)
+heap = []
+heapq.heappush(heap, (0, start))
 
-        if dist > distances[node]:
-            continue
+while heap:
+    dist, node = heapq.heappop(heap)
 
-        for adj_node, adj_dist in adj[node]:
-            # 현재 node를 거쳐서 가는 게 좋은지? -> 
-            if distances[adj_node] > distances[node] + adj_dist:
-                distances[adj_node] = distances[node] + adj_dist
-                heapq.heappush(heap, (distances[adj_node], adj_node,))
-    answer = max(distances[n] , answer)
+    if dist > distances[node]:
+        continue
+
+    for adj_node, adj_dist in adj[node]:
+        # 현재 node를 거쳐서 가는 게 좋은지? -> 
+        if distances[adj_node] > distances[node] + adj_dist:
+            distances[adj_node] = distances[node] + adj_dist
+            heapq.heappush(heap, (distances[adj_node], adj_node))
+answer = max(distances[1:])
 
 print(answer)
