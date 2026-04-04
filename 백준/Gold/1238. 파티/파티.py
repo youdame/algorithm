@@ -1,41 +1,59 @@
 import sys
+from collections import deque
 from io import StringIO
-from queue import PriorityQueue
+import heapq
 
 
 input = sys.stdin.readline
 
-N, M, X = list(map(int, input().split()))
+N, M, X = map(int, input().split())
 
-adj = [[] for i in range(N + 1)]
-for i in range(M):
-    A, B, W = list(map(int, input().split()))
-    adj[A].append((B, W))
+adj = [[] for _ in range(N+1)]
+for _ in range(M):
+    start, end ,T = map(int, input().split())
+    adj[start].append((end, T))
 
+answer_arr = [0] * (N+1)
+for start in range(1, N+1):
+    distances = [1e9] * (N+1)
+    heap = []
+    # 왜 이거 0이지..
+    distances[start] = 0
+    heapq.heappush(heap, (0, start))
+    
+    while heap:
+        dist, cur_node = heapq.heappop(heap)
 
-def 다익스트라(시작점):
-    priority_queue = PriorityQueue()  # 진행 중
-    distance = [1e9] * (N + 1)  # 업데이트
-    distance[시작점] = 0
-    priority_queue.put((0, 시작점))
-    while not priority_queue.empty():
-        확정가중치, 확정노드 = priority_queue.get()
-        if 확정가중치 != distance[확정노드]:
-            pass
+        if dist > distances[cur_node]:
+            continue
+        
+        # 인접한 노드 
+        for adj_node, adj_dist in adj[cur_node]:
+            # 현재 노드를 거쳐가는 게 더 가깝다면 갱신
+            if distances[adj_node] > distances[cur_node] + adj_dist:
+                distances[adj_node] = distances[cur_node] + adj_dist
+                heapq.heappush(heap, (distances[adj_node], adj_node))
+    answer_arr[start] = distances[X]
 
-        for 인접노드, 인접가중치 in adj[확정노드]:
-            if distance[인접노드] > distance[확정노드] + 인접가중치:
-                distance[인접노드] = distance[확정노드] + 인접가중치
-                priority_queue.put((distance[인접노드], 인접노드))
-    return distance
+start = X 
+distances = [1e9] * (N+1)
+heap = []
 
+distances[start] = 0
+heapq.heappush(heap, (0, start))
 
-# X에서 자기 집까지의 거리 => 돌아올 때
-돌아올때 = 다익스트라(X)
+while heap:
+    dist, cur_node = heapq.heappop(heap)
 
-# 자기 집에서 X까지의 거리
-for i in range(1, N + 1):
-    if i == X:
+    if dist > distances[cur_node]:
         continue
-    돌아올때[i] += 다익스트라(i)[X]
-print(max(돌아올때[1:]))
+    
+    # 인접한 노드 
+    for adj_node, adj_dist in adj[cur_node]:
+        # 현재 노드를 거쳐가는 게 더 가깝다면 갱신
+        if distances[adj_node] > distances[cur_node] + adj_dist:
+            distances[adj_node] = distances[cur_node] + adj_dist
+            heapq.heappush(heap, (distances[adj_node], adj_node))
+for end in range(1, N+1):
+    answer_arr[end] += distances[end]
+print(max(answer_arr))
