@@ -33,7 +33,7 @@ def bfs():
             if 0 <= ny < N and 0 <= nx < M:
                 # 지금 벽이야 근데 아직 안 부셨어! 부실 수 있어!
                 if arr[ny][nx] == 1 and broken == 0:
-                    if visited_distance[ny][nx][broken] == 0:
+                    if visited_distance[ny][nx][1] == 0:
                         # 부시자
                         visited_distance[ny][nx][1] = visited_distance[y][x][0] + 1
                         queue.append((ny, nx, 1))
