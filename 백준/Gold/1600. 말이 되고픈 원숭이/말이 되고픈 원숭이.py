@@ -18,9 +18,10 @@ other_directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 K_directions = [(-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2), (-2, -1)]
 
 def bfs():
-    visited = [[[0] * (K+1)  for _ in range(W)] for _ in range(H)]
+    visited = [[[-1] * (K+1)  for _ in range(W)] for _ in range(H)]
     queue = deque([(0, 0, 0)]) # y, x, horse_count
-
+    visited[0][0][0] = 0
+    
     while queue:
         y, x, horse_count = queue.popleft()
 
@@ -33,7 +34,7 @@ def bfs():
             for dy, dx in K_directions:
                 ny, nx = y + dy, x + dx
                 if 0 <= ny < H and 0 <= nx < W:
-                    if not visited[ny][nx][horse_count+1]:
+                    if visited[ny][nx][horse_count+1] == -1:
                         if arr[ny][nx] == 0:
                             queue.append((ny, nx, horse_count + 1))
                             visited[ny][nx][horse_count+1] = visited[y][x][horse_count] + 1
@@ -42,7 +43,7 @@ def bfs():
         for dy, dx in other_directions:
                 ny, nx = y + dy, x + dx
                 if 0 <= ny < H and 0 <= nx < W:
-                    if not visited[ny][nx][horse_count]:
+                    if visited[ny][nx][horse_count] == -1:
                         if arr[ny][nx] == 0:
                             queue.append((ny, nx, horse_count))
                             visited[ny][nx][horse_count] = visited[y][x][horse_count] + 1
