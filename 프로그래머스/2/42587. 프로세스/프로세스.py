@@ -1,29 +1,23 @@
-"""
-우선순위 큐면 heap을 써야하나?
-heap은 pop을 하면 내부적으로 재정렬을 하나?
-
-"""
+import heapq
 from collections import deque
-
 def solution(priorities, location):
     
-    queue = deque([])
-    for i in range(len(priorities)):
-        queue.append((priorities[i], i))
+    heap = []
     
-    priorities.sort(reverse=True)
-    count = 0
     
+    queue = deque([(p, i) for i, p in enumerate(priorities)])
+    for element in priorities :
+        heapq.heappush(heap, (-element))
+
+    count = 0 
     while queue:
-        process, index = queue.popleft()
-        
-        
-        if priorities[0] > process:
-            queue.append((process, index))
-        else:
+        p, i = queue.popleft()
+
+        if p != -heap[0]:
+            queue.append((p , i ))
+        else: 
             count += 1
-            priorities.pop(0)
-            if index == location:
+            if i == location : 
                 return count
-            
-            
+            heapq.heappop(heap)
+    
