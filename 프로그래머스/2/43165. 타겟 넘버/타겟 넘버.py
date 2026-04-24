@@ -1,34 +1,26 @@
-"""
-각 숫자 앞에 + / - 붙이기
-못 만들 수도 있지 않나..?
-아 그럼 그냥 0 리턴..? 
-
-"""
-
+import sys
+sys.setrecursionlimit(2000)
 
 def solution(numbers, target):
-    answer = 0
-    N = len(numbers)
+    n = len(numbers)
     
-    def cal_num(arr):
-        num = 0
-        for i in range(N):
-            num += arr[i] * numbers[i]
-        return num
-    
-    def dfs(arr):
-        nonlocal answer
-        if len(arr) == N:
-            if cal_num(arr) == target:
-                answer +=1
+    arr = []
+    count = 0
+    def backtracking():
+        nonlocal count
+        if len(arr) == n:
+            result = 0
+            for i in range(n):
+                result += arr[i] * numbers[i]
+            if result == target:
+                count += 1
             return 
         
-        for element in [1, -1]:
-            arr.append(element)
-            dfs(arr)
+        for 부호 in [1, -1]:
+            arr.append(부호)    
+            backtracking()
             arr.pop()
-
-        
-    dfs([])
-
-    return answer
+            
+    
+    backtracking()
+    return count
