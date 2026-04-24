@@ -1,14 +1,14 @@
+
 def solution(routes):
-    routes.sort(key=lambda x: x[1])
     
-    arr = []
-    for route in routes: # 통째로 가져온 뒤
-        start = route[0] # 인덱스로 꺼내기
-        end = route[1]
-        
-        if arr and start <= arr[-1] <= end:
+    routes.sort(key = lambda x : x[1])
+    count = 0
+    out_camera = -30001
+    for start, end in routes:
+        if start <= out_camera <= end:
             continue
         else:
-            arr.append(end)
+            out_camera = end
+            count +=1 
             
-    return len(arr)
+    return count
