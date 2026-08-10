@@ -1,14 +1,14 @@
 # [level 2] 게임 맵 최단거리 - 1844 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1844?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1844) 
 
 ### 성능 요약
 
-메모리: 9.47 MB, 시간: 8.37 ms
+메모리: 11.5 MB, 시간: 5.72 ms
 
 ### 구분
 
-코딩테스트 연습 > 깊이／너비 우선 탐색（DFS／BFS）
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 04월 22일 15:08:05
+2026년 08월 10일 21:38:40
 
 ### 문제 설명
 

@@ -1,26 +1,32 @@
 from collections import deque
+
 def solution(maps):
-    N = len(maps)
-    M = len(maps[0])
-    visited = [[False] * M for _ in range(N)]
-    distance = [[1e9] * M for _ in range(N)]
+    n = len(maps)
+    m = len(maps[0])
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     
-    directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-    
-    visited[0][0] = True
+    distance = [[-1] * m for i in range(n)]
+    visited = [[False] * m for i in range(n)]
+    queue = deque([(0, 0)])
     distance[0][0] = 1
-    queue = deque([(0,0)])
+    visited[0][0] = True
     
     while queue:
         y, x = queue.popleft()
         
         for dy, dx in directions:
-            ny = dy+ y
+            ny = dy + y
             nx = dx + x
-            if 0 <= ny < N and 0 <= nx < M and not visited[ny][nx]:
-                if maps[ny][nx] == 1:
+            
+            if 0 <= ny < n and 0 <= nx < m:
+                if not visited[ny][nx] and maps[ny][nx]:
+                    queue.append((ny, nx))
                     visited[ny][nx] = True
                     distance[ny][nx] = distance[y][x] + 1
-                    queue.append((ny, nx))
-                    
-    return distance[N-1][M-1] if distance[N-1][M-1] != 1e9 else -1
+                
+    if distance[n-1][m-1] == -1:
+        return -1 
+    else: 
+        return distance[n-1][m-1]
+
+        
