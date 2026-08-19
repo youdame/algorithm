@@ -1,31 +1,35 @@
-def calculate_count(arr):
-    current = arr[0]
-    count = 1
-    result = ""
-    
-    for i in range(1, len(arr)):
-        if current == arr[i]:
-            count += 1
-        else:
-            result += (current + str(count)) if count != 1 else current
-            count = 1
-        current = arr[i]
-
-    result += (current + str(count)) if count != 1 else current
-
-    return len(result)
-
 def solution(s):
-    answer = 1000
-    if len(s) == 1:
-        return 1
+    n = len(s)
     
-    for k in range(1, len(s)):
-        arr = []
-        split_length = k
-        for i in range(0, len(s), split_length):
-            arr.append(s[i:i+split_length])
+    answer = n
+    answer_str = ""
+
+    for i in range(1, n):
+        prev = s[0:i]
+        count = 1
         
-        answer = min(answer, calculate_count(arr))
-    
+
+        str_value = ""
+        
+        for j in range(i, n, i):
+            if prev == s[j:j+i]:
+                count += 1
+            else:
+                
+                if count != 1:
+                    str_value += f"{count}{prev}"
+                else:
+                    str_value += f"{prev}"
+                prev = s[j:j+i]
+                count = 1
+
+        if count != 1:
+            str_value += f"{count}{prev}"
+        else:
+            str_value += f"{prev}"
+            
+        if len(str_value) < answer:
+            answer = len(str_value)
+            answer_str = str_value
     return answer
+            
