@@ -1,25 +1,30 @@
+from collections import defaultdict
+
 def solution(tickets):
-    n = len(tickets)
-    tickets.sort()
-  
-    arr = ["ICN"]
-    visited= [False] * n
+    
+    adj = defaultdict(list)
+    
+    tickets.sort(key = lambda x : x[1], reverse = True)
+    # print(tickets)
+    for start, end in tickets:
+        adj[start].append(end)
+    # print(adj)
+        
+        
+    
+    stack = ["ICN"]
     
     answer = []
-    
-    def dfs(arr):
-        if len(arr) == n + 1:
-            answer.append(arr[:])
-            return 
-        
-        for i in range(n):
-            a, b = tickets[i]
-            if a == arr[-1] and not visited[i]:
-                arr.append(b)
-                visited[i] = True
-                dfs(arr)
-                arr.pop()
-                visited[i] = False
-    dfs(arr)
 
-    return answer[0]
+    while stack:
+        
+        top = stack[-1]
+        
+        if adj[top]:
+            stack.append(adj[top].pop())
+        else:
+            answer.append(stack.pop())
+            
+
+
+    return answer[::-1]
