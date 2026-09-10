@@ -1,34 +1,45 @@
 """
-모든 사람이 심사를 받는데 걸리는 시간을 최소로 하고싶음 
+심사대가 2개고 
+심사관마다 처리하는 속도가 다름
 
-각 사람은 
-선택지가 두 개인 경우 => 짧은 아저씨 선택 
-하나인 경우 => 기다렸다가 짧은 아저씨 선택 or 비어있는 아저씨 선택
-없는 경우 => 기다렸다가 나오는 거 or 짧은 아저씨 나올 때까지 기다리기
+비어있는 심사대를 찾는 게 관건 
+일단 answer = 0
 
-어떤 선택이 더 better한지 
+근데 그냥 각 수의 배수마다 심사대가 비는 거 아님..?
+7 14 21 
+10 20
+
+아 근데 어디서 받는게 더 유리한지도 판단해야함...
+
 """
 
+
+
+
 def solution(n, times):
-    times.sort()
+    def check(mid):
     
+        result = 0
+
+        for time in times:
+            result += mid // time
+
+        if result >= n:
+            return True
+        return False
+
     left = 1
-    right = 1e9 * n
-    answer = 1e9
-    while left <= right:
+    right = max(times) * n 
+    
+    answer = 0
+    while left <= right: 
         mid = (left + right) // 2
-        
-        count = 0
-        
-        for 심사관 in times:
-            count += mid // 심사관
-        
-        if count >= n:
-            # 더 작은 mid도 가능한지
-            right = mid - 1
+        if check(mid):
             answer = mid
+            right = mid - 1
         else:
             left = mid + 1
-    
     return answer
+    
+    
     
