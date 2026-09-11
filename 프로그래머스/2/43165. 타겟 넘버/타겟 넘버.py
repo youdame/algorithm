@@ -1,26 +1,27 @@
-import sys
-sys.setrecursionlimit(2000)
-
 def solution(numbers, target):
+    
+    path = []
+    
     n = len(numbers)
     
-    arr = []
-    count = 0
-    def backtracking():
-        nonlocal count
-        if len(arr) == n:
+    answer = 0
+    def backtrack():
+        nonlocal answer
+        if len(path) == n:
             result = 0
             for i in range(n):
-                result += arr[i] * numbers[i]
+                result += path[i] * numbers[i]
+
             if result == target:
-                count += 1
+                answer += 1
             return 
         
-        for 부호 in [1, -1]:
-            arr.append(부호)    
-            backtracking()
-            arr.pop()
-            
+        for 부호 in (-1, 1):
+            path.append(부호)        
+            backtrack()
+            path.pop()
+    backtrack()
+    return answer
     
-    backtracking()
-    return count
+    
+    
