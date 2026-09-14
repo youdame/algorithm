@@ -1,24 +1,24 @@
 from collections import deque
+
 def solution(n, computers):
-    
     visited = [False] * n
     
-    count = 0
+    answer = 0
     
-    for i in range(len(computers)):
+    for i in range(n):
         if not visited[i]:
-            count += 1
+            answer += 1
             queue = deque([i])
             visited[i] = True
             
-            while queue:
+            while queue :
                 node = queue.popleft()
-                
-                adj = computers[node]
-                for j in range(len(computers[node])):
-                    if j != i and adj[j] == 1 and not visited[j]:
-                        queue.append(j)
+                for j in range(n):
+                    if not visited[j] and node != j and computers[node][j] == 1:
                         visited[j] = True
-
-    return count
+                        queue.append(j)
+    return answer    
             
+                    
+        
+                
