@@ -1,17 +1,35 @@
-from itertools import permutations
-
 def solution(k, dungeons):
-    answer = 0
-    for per in permutations(dungeons):        
-        hp = k
-        count = 0 
-        for 필요, 소모 in per:
-            if 필요 <= hp:
-                hp -= 소모
-                count +=1 
-            if hp <= 0:
-                break
-        answer = max(count, answer)
-        # print(answer)
-    return answer
     
+    
+    path = []
+    n = len(dungeons)
+    possible_path = []
+    
+    
+    def backtrack():
+        if len(path) == n:
+            possible_path.append(list(path))
+            return 
+        
+        for i in range(n):
+            if i not in path:
+                path.append(i)
+                backtrack()
+                path.pop()
+
+    backtrack()
+    
+    answer = 0
+    for path in possible_path:
+        hp = k
+        count = 0
+        for idx in path:
+            최소, 소모 = dungeons[idx]
+            if hp < 최소:
+                break
+            else:
+                
+                hp -= 소모
+                count += 1
+        answer = max(answer, count)
+    return answer
