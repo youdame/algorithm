@@ -1,38 +1,46 @@
 def solution(rows, columns, queries):
+    grid = [[j + i * columns for j in range(1, columns+1) ]for i in range(rows)]
     
-    
-    grid = [[i * columns + j for j in range(1, columns + 1)] for i in range(rows)]
-    
-    
-    queries = [[a-1, b-1, c-1, d-1] for a, b , c, d in queries]
-    
-    answer= []
-    for query in queries:
-        x1, y1, x2, y2 = query
-        top_left = grid[x1][y1]
-        min_val = top_left
+
+    answer = [ ]
+    for x1, y1, x2, y2 in queries:
+        x1 -= 1
+        y1 -= 1
+        x2 -= 1
+        y2 -= 1
         
-        # 왼
+        arr = []
+        temp = grid[x1][y1]
         
-        for x in range(x1, x2):
-            grid[x][y1] = grid[x+1][y1] 
-            min_val = min(min_val, grid[x][y1])
-        # 아 
-        for y in range(y1, y2):
-            grid[x2][y] = grid[x2][y+1]
-            min_val = min(min_val, grid[x2][y])
-                
-        # 오 
-        for x in range(x2, x1, -1):
-            grid[x][y2] = grid[x-1][y2]
-            min_val = min(min_val, grid[x][y2])
-            
-        # 위
-        for y in range(y2, y1+1, -1):
-            grid[x1][y] = grid[x1][y-1]
-            min_val = min(min_val, grid[x1][y])
-            
-        grid[x1][y1 + 1] = top_left
-        answer.append(min_val)
+        
+        
+        # 왼쪽
+        
+        for i in range(x1+1,x2+1):
+            # j는 b로 고정
+            grid[i-1][y1] = grid[i][y1]
+            arr.append(grid[i][y1])
+        
+        
+        # 아래쪽 
+        for j in range(y1+1,y2+1):
+            grid[x2][j-1] = grid[x2][j]
+            arr.append(grid[x2][j])
+
+        # print("아래쪽 ", grid)
+        # 오른쪽  
+        for i in range(x2, x1, -1):
+            grid[i][y2] = grid[i-1][y2]
+            arr.append( grid[i-1][y2])
+        # print("오른쪽 ", grid)
+        # 위쪽 
+        for j in range(y2, y1, -1):
+            grid[x1][j] = grid[x1][j-1]
+            arr.append(grid[x1][j-1])
+        # print("위쪽 ", grid)
+        grid[x1][y1+1] = temp
+        arr.append(temp)
+        
+        answer.append(min(arr))
         
     return answer
