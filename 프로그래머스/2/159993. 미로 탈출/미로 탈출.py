@@ -12,8 +12,7 @@ def solution(maps):
     s_y, s_x = record["S"]
     l_y, l_x = record["L"]
     e_y, e_x = record["E"]
-    
-    answer = 0
+
     
     
     def bfs(start, target):
