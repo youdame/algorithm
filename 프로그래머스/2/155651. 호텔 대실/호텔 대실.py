@@ -19,20 +19,12 @@ def solution(book_time):
     # print(book_time)
     
     for start, end in book_time:
-        if heap:
-            asap_end = heap[0]
+        if heap and heap[0] <= start:
+            heapq.heappop(heap)
+        heapq.heappush(heap, (end + 10))
 
-            if start >= asap_end:
-                heapq.heappop(heap)
-            else:
-                answer +=1 
-            heapq.heappush(heap, (end + 10))
-        else:
-            heapq.heappush(heap, end + 10)
-            answer += 1
 
-        # print(heap)
-    return answer
+    return len(heap)
 
             
             
