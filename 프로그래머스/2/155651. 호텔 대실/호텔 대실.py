@@ -1,37 +1,40 @@
-def is_possible(hour, minute , new_hour, new_minute):
-    return hour * 60 + minute + 10 <= new_hour * 60 + new_minute 
+import heapq
 
+
+def get_minutes(str_time):
+    hours, minutes = map(int, str_time.split(":"))
+    
+    return hours * 60 + minutes
 def solution(book_time):
+    book_time = sorted([(get_minutes(start), get_minutes(end)) for start, end in book_time])
+    """
+    지금 있는 방 중에 들어갈 수 있는 방이 있는지를 확인하는데에 힙을 사용한다..
+    즉, 사용하는 방을 담는다
+    사용하는 방 중 가장 빨리 퇴실하는 방을 알려주는 거임 그러니 확인은 한 번만 해도 됨
     
-    sorted_times = sorted(book_time, key = lambda x : x[0])
+    """
     
-
-    N = len(sorted_times)
-    visited = [False] * N
-    # print(sorted_times)
-    
+    heap = []
     answer = 0
-    start, end = -1, -1
-    for i in range(N):
-        start, end = sorted_times[i]
-        
-        if not visited[i]:
-            visited[i] = True
-            answer += 1
-            
-            for j in range(i, N):
-                new_start, new_end = sorted_times[j]
-                
-                if end < new_start and not visited[j]:
-                    hour, minute = int(end[0:2]), int(end[3:5])
-                    new_hour, new_minute = int(new_start[0:2]), int(new_start[3:5])
-                    
-                    possible = is_possible(hour, minute , new_hour, new_minute)
+    # print(book_time)
     
-                    
-                    if possible:
-                        start, end = sorted_times[j]
-                        visited[j] = True
-                        # print(i, j, visited)
+    for start, end in book_time:
+        if heap:
+            asap_end = heap[0]
 
+            if start >= asap_end:
+                heapq.heappop(heap)
+            else:
+                answer +=1 
+            heapq.heappush(heap, (end + 10))
+        else:
+            heapq.heappush(heap, end + 10)
+            answer += 1
+
+        # print(heap)
     return answer
+
+            
+            
+            
+    
