@@ -23,4 +23,4 @@ def solution(n):
             num += 1
             
     # arr을 1차원 배열로 쭉 펴서 반환하면 끝!
-    return [i  for row in arr for i in row]
+    return sum(arr, [])
