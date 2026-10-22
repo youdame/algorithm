@@ -1,10 +1,12 @@
 function solution(array, commands) {
     const answer = []
-    commands.forEach((command) =>{
-        const [i, j , k] = command
-        const slicedArray = array.slice(i-1, j).sort((a, b) => a- b)
-        answer.push(slicedArray[k-1])
-    })
-     
+    for (command of commands){
+        const [start, end, index] = command
+
+        sliced_arr = array.slice(start-1, end)
+        
+        sliced_arr.sort((a, b) => a-b)
+        answer.push(sliced_arr[index-1])
+    }
     return answer
 }

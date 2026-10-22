@@ -1,14 +1,14 @@
 # [level 1] K번째수 - 42748 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42748?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42748) 
 
 ### 성능 요약
 
-메모리: 33.4 MB, 시간: 0.08 ms
+메모리: 43 MB, 시간: 3.25 ms
 
 ### 구분
 
-코딩테스트 연습 > 정렬
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 04월 23일 09:00:35
+2026년 10월 22일 10:11:09
 
 ### 문제 설명
 
