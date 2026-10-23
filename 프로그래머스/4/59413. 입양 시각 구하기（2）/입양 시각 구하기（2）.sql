@@ -1,20 +1,18 @@
-WITH RECURSIVE TIME_TABLE as 
-(SELECT 0 as HOUR
-UNION ALL 
-SELECT HOUR + 1 
- FROM TIME_TABLE
- WHERE HOUR < 23 
-),
+
+with recursive time_table as (
+    select 0 as hour
     
-COUNT_TABLE AS 
-(SELECT HOUR(DATETIME) as HOUR, COUNT(HOUR(DATETIME)) as COUNT
-FROM ANIMAL_OUTS
-GROUP BY HOUR
+    union all
+    
+    select hour + 1
+    from time_table
+    where hour < 23
 )
 
-
-SELECT T.HOUR, IFNULL(C.COUNT, 0) as COUNT
-FROM TIME_TABLE T
-LEFT JOIN COUNT_TABLE C
-ON T.HOUR = C.HOUR
-ORDER BY T.HOUR
+select T.hour , IFNULL(A.count, 0) as count
+from time_table T
+left join 
+(select HOUR(DATETIME) as hour, count(*) as count
+from ANIMAL_OUTS
+group by hour) as A
+ON T.hour = A.hour
