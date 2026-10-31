@@ -3,7 +3,7 @@ function solution(k, tangerine) {
     
     
     tangerine.forEach((e) => {
-        tanger_obj[e] = tanger_obj[e] + 1 || 1
+        tanger_obj[e] = (tanger_obj[e] || 0 ) + 1
     })
     
     // console.log(tanger_obj)
