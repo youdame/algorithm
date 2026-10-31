@@ -1,21 +1,25 @@
 def solution(m, n, puddles):
     dp = [[0] * m for _ in range(n)]
-    puddles = [[y-1, x-1] for x, y in puddles]    
+    print(dp)
     
-
+    
+    for i in range(len(puddles)):
+        j, k = puddles[i]
+        puddles[i] = [k-1, j-1]
+        
     dp[0][0] = 1
+    
     for i in range(n):
         for j in range(m):
-            if (i== 0 and j == 0) or [i, j] in puddles:
+            if [i, j] in puddles or (i, j) == (0, 0):
                 continue
             
             if i == 0:
-                dp[i][j] = dp[i][j-1]
+                dp[i][j] = (dp[i][j-1]) % 1000000007
             elif j == 0:
-                dp[i][j] = dp[i-1][j]
+                dp[i][j] = (dp[i-1][j]) % 1000000007
             else:
-                dp[i][j] = (dp[i][j-1] + dp[i-1][j]) % 1000000007
+                dp[i][j] = (dp[i-1][j] + dp[i][j-1] ) % 1000000007
+
+    return dp[-1][-1]
             
-    # print(puddles)
-    print(dp)
-    return dp[n-1][m-1]
