@@ -1,35 +1,25 @@
 def solution(k, dungeons):
     
-    
-    path = []
     n = len(dungeons)
-    possible_path = []
     
-    
-    def backtrack():
-        if len(path) == n:
-            possible_path.append(list(path))
-            return 
-        
-        for i in range(n):
-            if i not in path:
-                path.append(i)
-                backtrack()
-                path.pop()
-
-    backtrack()
+    arr = []
     
     answer = 0
-    for path in possible_path:
-        hp = k
-        count = 0
-        for idx in path:
-            최소, 소모 = dungeons[idx]
-            if hp < 최소:
-                break
-            else:
+    def dfs(피로도):
+        nonlocal answer
+        answer = max(answer , len(arr))
+        if 피로도 <= 0:
+            answer = max(answer , len(arr))
+            return 
+
+        for i in range(n):
+            if i not in arr:
+                최소피로도, 소모피로도 = dungeons[i]
+                # print(최소피로도, 소모피로도)
+                if 최소피로도 <= 피로도 :
+                    arr.append(i)
+                    dfs(피로도 - 소모피로도)
+                    arr.pop()
                 
-                hp -= 소모
-                count += 1
-        answer = max(answer, count)
+    dfs(k)
     return answer
