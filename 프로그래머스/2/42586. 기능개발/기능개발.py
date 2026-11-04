@@ -11,17 +11,18 @@ def solution(progresses, speeds):
     
     answer = []
     
-    # print(possible_배포일)
-
-    while days:
-        day = days.popleft()
-        count = 1
-        
-        while days and days[0] <= day:
+    count = 0
+    
+    max_day = days[0]
+    
+    for day in days:
+        if day <= max_day:
             count += 1
-            days.popleft()
-        if count > 0:
+        else:
             answer.append(count)
+            max_day = day
+            count = 1
+    answer.append(count)
     return answer
     
         
