@@ -1,23 +1,22 @@
-
-
 def solution(prices):
-    
-    
     stack = []
-    answer = [0] * len(prices)
-
-    for i in range(len(prices)):
+    
+    n = len(prices)
+    
+    answer = [0] * n
+    
+    for i in range(n):
+        
         while stack and prices[stack[-1]] > prices[i]:
-            pop_time = stack.pop()
-            answer[pop_time] = i - pop_time
-        
-        stack.append(i)
-        
+            top = stack.pop()
+            answer[top] = i - top
+        else:
+            stack.append(i)
 
+            
     while stack:
-        pop_time = stack.pop()
-        answer[pop_time] = i - pop_time
-        
-    return answer
-        
+        top = stack.pop()
+        answer[top] = n - 1 - top
 
+    print(stack)
+    return answer
