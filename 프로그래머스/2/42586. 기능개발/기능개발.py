@@ -4,21 +4,22 @@ import math
 def solution(progresses, speeds):
     
     n = len(progresses)
-    possible_배포일 = [math.ceil((100 - progresses[i]) / speeds[i])  for i in range(n) ]
+    days = [math.ceil((100 - progresses[i]) / speeds[i])  for i in range(n) ]
     
-    possible_배포일 = deque(possible_배포일)
+    days = deque(days)
     
     
     answer = []
-    day = possible_배포일[0]
+    
     # print(possible_배포일)
 
-    while possible_배포일:
-        count = 0
-        while possible_배포일 and possible_배포일[0] <= day:
-            possible_배포일.popleft()
+    while days:
+        day = days.popleft()
+        count = 1
+        
+        while days and days[0] <= day:
             count += 1
-        day += 1
+            days.popleft()
         if count > 0:
             answer.append(count)
     return answer
