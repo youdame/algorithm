@@ -4,10 +4,10 @@ def solution(numbers, target):
     n = len(numbers)
     answer = 0
     
-    def dfs(x, count, index ):
+    def dfs(x, index ):
         nonlocal answer
         
-        if count == n:
+        if index == n:
             # print(x)
             if x == target:
                 answer += 1
@@ -15,8 +15,8 @@ def solution(numbers, target):
         
         
         # +를 붙인 경우
-        dfs(x + numbers[index], count+1, index+1)
+        dfs(x + numbers[index], index+1)
         # -를 붙인 경우 
-        dfs(x - numbers[index], count+1, index+1)
-    dfs(0, 0, 0 )
+        dfs(x - numbers[index], index+1)
+    dfs(0, 0)
     return answer
