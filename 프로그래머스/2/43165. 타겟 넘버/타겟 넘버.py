@@ -1,27 +1,22 @@
 def solution(numbers, target):
-    
-    path = []
+
     
     n = len(numbers)
-    
     answer = 0
-    def backtrack():
+    
+    def dfs(x, count, index ):
         nonlocal answer
-        if len(path) == n:
-            result = 0
-            for i in range(n):
-                result += path[i] * numbers[i]
-
-            if result == target:
+        
+        if count == n:
+            # print(x)
+            if x == target:
                 answer += 1
             return 
         
-        for 부호 in (-1, 1):
-            path.append(부호)        
-            backtrack()
-            path.pop()
-    backtrack()
+        
+        # +를 붙인 경우
+        dfs(x + numbers[index], count+1, index+1)
+        # -를 붙인 경우 
+        dfs(x - numbers[index], count+1, index+1)
+    dfs(0, 0, 0 )
     return answer
-    
-    
-    
