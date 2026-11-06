@@ -6,9 +6,8 @@ group by emp_no)
 
 
 
-select score,	e.EMP_NO,	EMP_NAME,	POSITION,	EMAIL
+select s.score, e.EMP_NO,	EMP_NAME,	POSITION,	EMAIL
 from hr_employees e
 join sum_score s
 on e.emp_no = s.emp_no
-order by score desc
-limit 1
+where score = (select max(score) from sum_score)
