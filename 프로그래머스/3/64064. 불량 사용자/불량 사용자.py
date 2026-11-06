@@ -36,11 +36,10 @@ def solution(user_id, banned_id):
     
     def dfs(index):
         nonlocal answer
-        if index == m and len(visited) == m:
+        if index == m:
             # print(visited)
             answer.add(tuple(sorted(visited)))
             return 
-        # banned_id 인덱스 하나씩 돌면서 
 
         # 해당되는 인덱스의 매칭된 value들 
         for matched_id in record[index]:
