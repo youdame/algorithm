@@ -1,27 +1,31 @@
+from collections import deque
 def solution(bandage, health, attacks):
-    current_health = health
-    attack_times = attacks[-1][0]
-    attack_index = 0
     
-    시전시간, 초당회복량, 추가회복량 = bandage
-    double = -1
-    for time in range(attack_times+1):
-        if attacks[attack_index][0] == time:
-            current_health -= attacks[attack_index][1]
-            attack_index += 1
-            double = 0
-        else:
-            current_health = min(초당회복량 + current_health, health)
-            double += 1
-            if double == 시전시간:
-                current_health = min(추가회복량 + current_health, health)
-                double = 0
-
+    t, x, y = bandage
+    
+    time = 0 
+    max_health = health
+    attacks = deque(attacks)
+    
+    while attacks:
+        공격시간, 피해량 = attacks.popleft()
+        continous_success = 0
+        while time < 공격시간:
+            
+            continous_success += 1
+            
+            if continous_success == t:
+                # print("__")
+                health = min(max_health, health + y)
+                continous_success = 0
+            
+            health = min(max_health, health + x)
+            # print(time, health, continous_success)
+            time += 1
+        health -= 피해량
+        if health <= 0:
+            return -1 
+        # print(time, health)
+        time += 1
         
-        if current_health <= 0:
-            return -1
-
-    return current_health
-    
-    
-    
+    return health 
