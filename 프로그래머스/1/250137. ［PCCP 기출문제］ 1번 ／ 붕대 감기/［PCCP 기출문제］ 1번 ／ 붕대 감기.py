@@ -5,10 +5,9 @@ def solution(bandage, health, attacks):
     
     time = 0 
     max_health = health
-    attacks = deque(attacks)
+
     
-    while attacks:
-        공격시간, 피해량 = attacks.popleft()
+    for 공격시간, 피해량 in attacks:
         continous_success = 0
         while time < 공격시간:
             
