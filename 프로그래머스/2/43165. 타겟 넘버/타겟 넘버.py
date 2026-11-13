@@ -1,22 +1,17 @@
 def solution(numbers, target):
-
-    
     n = len(numbers)
-    answer = 0
     
-    def dfs(x, index ):
-        nonlocal answer
-        
+    count = 0
+    def dfs(index, num):
+        nonlocal count
         if index == n:
-            # print(x)
-            if x == target:
-                answer += 1
+            if target == num :
+                count += 1
+                # print(num)
             return 
         
-        
-        # +를 붙인 경우
-        dfs(x + numbers[index], index+1)
-        # -를 붙인 경우 
-        dfs(x - numbers[index], index+1)
+
+        dfs(index + 1, num + numbers[index])
+        dfs(index + 1, num - numbers[index])
     dfs(0, 0)
-    return answer
+    return count
