@@ -1,55 +1,36 @@
-from collections import deque, defaultdict
-   
+from collections import deque
 def solution(land):
     n = len(land)
     m = len(land[0])
     
-    directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+    answer = -1e9
+
     visited = [[False] * m for _ in range(n)]
+    oil_by_col = [0] * m
     
-    덩어리_number = 1
-    record = [[-1] * m for _ in range(n)]
-    size = dict({})
-    
-    for i in range(n):
-        for j in range(m):
-            if land[i][j] == 1 and not visited[i][j]:
-                queue = deque([])
-                queue.append((i, j))
-                visited[i][j] = True
-                
-                record[i][j] = 덩어리_number
-                석유 = 1
-                
-                # bfs 시작 
-                while queue:
-                    y, x = queue.popleft()
-                    
-                    for dy, dx in directions:
-                        ny = dy + y
-                        nx = dx + x
-                        if 0 <= ny < n and 0 <= nx < m:
-                            if not visited[ny][nx] and land[ny][nx] == 1:
-                                visited[ny][nx] = True
-                                queue.append((ny, nx))
-                                record[ny][nx] = record[i][j]
-                                석유 += 1
-                # bfs 끝 
-                size[덩어리_number] = 석유
-                덩어리_number += 1
+    for j in range(m):
+        for i in range(n):
+            if not land[i][j] or visited[i][j]:
+                continue
+            size = 0          # 현재 덩어리의 크기
+            cols = set()      # 현재 덩어리가 걸쳐 있는 열 번호들
 
-    answer = []
-    for i in range(m):
-        cols = set()
-        for j in range(n):
-            if record[j][i] != -1:
-                cols.add(record[j][i])
-        total_석유 = sum(size[element] for element in cols)
-        answer.append(total_석유) 
-    return max(answer)
-    
-                
-        
+            queue = deque([(i, j)])
+            visited[i][j] = True
+            
+            while queue:
+                y, x = queue.popleft()
+                cols.add(x)
+                size += 1
+                for dy, dx in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+                    ny = dy + y
+                    nx = dx + x
+                    if 0 <= ny < n and 0 <= nx < m :
+                        if land[ny][nx] == 1 and not visited[ny][nx]:
+                            visited[ny][nx] = True
+                            queue.append((ny, nx))
 
-    
-
+            for col in cols:
+                oil_by_col[col] += size
+    print(oil_by_col)
+    return max(oil_by_col)            
