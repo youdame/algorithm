@@ -1,55 +1,38 @@
+def time_to_minutes(time_str):
+    h, m = map(int, time_str.split(":"))
+    return h * 60 + m
+
+
 def solution(plans):
     
+    plans = [[a, time_to_minutes(b), int(c)] for a, b, c in plans]
+    
     plans.sort(key = lambda x : x[1])
+    
+    
     n = len(plans)
-    
-
-    for i in range(len(plans)):
-        name, start, playtime = plans[i]
-        hour, minutes = map(int, start.split(":"))    
-        start = hour * 60 + minutes
-        plans[i] = [name, start, int(playtime)]
-        
-    
-    """ 
-    멈춘 과제의 이름, 시간
-    멈춘 과제의 배열이 비어있는지 아닌지
-    지금 가능한지 
-    """
-    answer = []
     stack = []
     
-
-
+    answer = []
     for i in range(n-1):
-
         name, start, playtime = plans[i]
-        next_start = plans[i+1][1]
+        next_name, next_start, next_playtime = plans[i + 1]
         
-        finish = start + playtime
-        
-
-        if finish > next_start:
-            stack.append([name, finish - next_start])
+        if start + playtime > next_start :
+            stack.append((playtime + start - next_start , name))
         else:
             answer.append(name)
-            gap = next_start - finish
-            while stack and gap > 0:
-                remain_name, remain_playtime = stack[-1]
-                if remain_playtime <= gap: 
-                    stack.pop()
-                    answer.append(remain_name)
-                    gap -= remain_playtime
+            free_time = next_start - (start + playtime)             
+            while free_time > 0 and stack:            
+                remain_time, remain_name = stack.pop() 
+                if remain_time - free_time > 0:
+                    stack.append((remain_time - free_time, remain_name))
                 else:
-                    stack[-1][-1] -= gap
-                    gap = 0
-                    
-    answer.append(plans[-1][0])
-    while stack:
-        answer.append(stack.pop()[0])
+                    answer.append(remain_name)
+                free_time -= remain_time
             
-                        
-        
-    return answer
+    answer.append(plans[-1][0])
     
-        
+    stack = [name for _, name in stack]
+    print(answer + stack[::-1])
+    return answer + stack[::-1] 
