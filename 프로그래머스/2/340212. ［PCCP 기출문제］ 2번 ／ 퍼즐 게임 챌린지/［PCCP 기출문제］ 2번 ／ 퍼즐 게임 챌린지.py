@@ -16,7 +16,8 @@ def solution(diffs, times, limit):
                 time += times[i]
             else:
                 time += (times[i-1] + times[i]) * (diffs[i]- level) + times[i]
-
+            if time > limit:
+                break
         # print(level, time)  
         if time <= limit:
             right = level 
