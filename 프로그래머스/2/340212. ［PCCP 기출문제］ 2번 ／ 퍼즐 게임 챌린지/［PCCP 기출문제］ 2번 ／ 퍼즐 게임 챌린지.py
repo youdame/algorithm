@@ -2,9 +2,10 @@ def solution(diffs, times, limit):
     n = len(diffs)
     
     left = 1
-    right = 1e15
+    right = max(diffs)
     
-    answer = 1e15
+    answer = max(diffs)
+    
     while left < right:
         level = (left + right) // 2
         
